@@ -8,7 +8,7 @@ import { PlaceRoutes } from "../routes/place_routes";
 class App {
 
    public app: express.Application;
-   public mongoUrl: string = 'mongodb://localhost/' + environment.getDBName();
+   public mongoUrl: string = ''+environment.dbConnection().trim();
 
    private user_routes: UserRoutes = new UserRoutes();
    private place_routes: PlaceRoutes = new PlaceRoutes();
@@ -31,8 +31,19 @@ class App {
       this.app.use(bodyParser.urlencoded({ extended: false }));
    }
    private mongoSetup(): void {
-      mongoose.connect(this.mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false });
+      try {
+      mongoose.connect(
+         this.mongoUrl,
+         {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useCreateIndex: true,
+            useFindAndModify: false
+         });
+      } catch (err){
+         return err;
+      }
    }
-   
+
 }
 export default new App().app;

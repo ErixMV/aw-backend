@@ -6,6 +6,7 @@ var Environments;
     Environments["dev_environment"] = "dev";
     Environments["prod_environment"] = "prod";
     Environments["qa_environment"] = "qa";
+    Environments["db_connection"] = "mongodb+srv://illUser:34353435@cluster0.ndvh5.mongodb.net/db_test_project_places_dev?retryWrites=true&w=majority";
 })(Environments || (Environments = {}));
 class Environment {
     constructor(environment) {
@@ -38,6 +39,9 @@ class Environment {
         else {
             return 'db_test_project_local';
         }
+    }
+    dbConnection() {
+        return Environments.db_connection;
     }
 }
 exports.default = new Environment(Environments.local_environment);

@@ -9,7 +9,7 @@ const common_routes_1 = require("../routes/common_routes");
 const place_routes_1 = require("../routes/place_routes");
 class App {
     constructor() {
-        this.mongoUrl = 'mongodb://localhost/' + environment_1.default.getDBName();
+        this.mongoUrl = '' + environment_1.default.dbConnection().trim();
         this.user_routes = new user_routes_1.UserRoutes();
         this.place_routes = new place_routes_1.PlaceRoutes();
         this.common_routes = new common_routes_1.CommonRoutes();
@@ -27,7 +27,17 @@ class App {
         this.app.use(bodyParser.urlencoded({ extended: false }));
     }
     mongoSetup() {
-        mongoose.connect(this.mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false });
+        try {
+            mongoose.connect(this.mongoUrl, {
+                useNewUrlParser: true,
+                useUnifiedTopology: true,
+                useCreateIndex: true,
+                useFindAndModify: false
+            });
+        }
+        catch (err) {
+            return err;
+        }
     }
 }
 exports.default = new App().app;

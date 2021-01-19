@@ -2,7 +2,8 @@ enum Environments {
     local_environment = 'local',
     dev_environment = 'dev',
     prod_environment = 'prod',
-    qa_environment = 'qa'
+    qa_environment = 'qa',
+    db_connection = 'mongodb+srv://illUser:34353435@cluster0.ndvh5.mongodb.net/db_test_project_places_dev?retryWrites=true&w=majority'
 }
 
 class Environment {
@@ -34,6 +35,9 @@ class Environment {
         } else {
             return 'db_test_project_local';
         }
+    }
+    dbConnection(): String {
+        return Environments.db_connection;
     }
 }
 
