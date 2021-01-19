@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+      "baseUrl" : "lib",
+    },
+    "exclude": ["node_modules"],
+    "include": ["lib"],
+  }
