@@ -1,14 +1,14 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as mongoose from "mongoose";
-import environment from "../environment";
+import {DB_CONNECTION } from "../constants/env-constants";
 import { UserRoutes } from "../routes/user_routes";
 import { CommonRoutes } from "../routes/common_routes";
 import { PlaceRoutes } from "../routes/place_routes";
 class App {
 
    public app: express.Application;
-   public mongoUrl: string = ''+environment.dbConnection().trim();
+   public mongoUrl: string = DB_CONNECTION;
 
    private user_routes: UserRoutes = new UserRoutes();
    private place_routes: PlaceRoutes = new PlaceRoutes();
@@ -28,8 +28,10 @@ class App {
       // support application/json type post data
       this.app.use(bodyParser.json());
       //support application/x-www-form-urlencoded post data
-      this.app.use(bodyParser.urlencoded({ extended: false }));
+      this.app.use(bodyParser.urlencoded({ extended: true }));
    }
+
+
    private mongoSetup(): void {
       try {
       mongoose.connect(
